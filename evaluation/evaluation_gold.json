@@ -1,0 +1,8 @@
+[
+  {"text":"Rashi Patil emailed rashi.patil@gmail.com.","entities":[{"type":"PERSON","text":"Rashi Patil"},{"type":"EMAIL","text":"rashi.patil@gmail.com"}]},
+  {"text":"Call +91 98765 43210 or use SSN 123-45-6789.","entities":[{"type":"PHONE","text":"+91 98765 43210"},{"type":"SSN","text":"123-45-6789"}]},
+  {"text":"Google is located at 12 Palm Road, Mumbai 400001.","entities":[{"type":"COMPANY","text":"Google"},{"type":"ADDRESS","text":"12 Palm Road, Mumbai 400001"}]},
+  {"text":"DOB: 10/03/1992; IP: 192.168.1.10.","entities":[{"type":"DOB","text":"10/03/1992"},{"type":"IP_ADDRESS","text":"192.168.1.10"}]},
+  {"text":"Card 4111 1111 1111 1111 belongs to Rohan Dey.","entities":[{"type":"CREDIT_CARD","text":"4111 1111 1111 1111"},{"type":"PERSON","text":"Rohan Dey"}]},
+  {"text":"Order 2024-001234 is due on 10/03/2024.","entities":[]}
+]
