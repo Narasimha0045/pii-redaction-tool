@@ -1,3 +1,6 @@
 python-docx
 spacy
 faker
+fastapi
+uvicorn
+python-multipart

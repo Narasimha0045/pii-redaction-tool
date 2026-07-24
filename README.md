@@ -38,3 +38,7 @@ python evaluate.py
 ```
 
 The evaluator reports precision, recall, and F1 from entity-level matches. Accuracy is intentionally omitted because true negatives are undefined without token-level annotation of all non-PII text. The metrics are useful regression checks, not a claim of production-wide performance.
+
+## Web deployment
+
+The repository includes a small FastAPI upload page for Render. Create a Render web service from this GitHub repository and let Render use `render.yaml`. The service accepts a DOCX upload, returns a redacted copy, and uses a temporary directory so uploaded files are not retained after the request.
