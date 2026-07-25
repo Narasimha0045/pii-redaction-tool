@@ -13,7 +13,7 @@ from docx import Document
 from faker import Faker
 
 EMAIL = re.compile(r"(?<![\w.+-])[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}(?![\w-])")
-PHONE = re.compile(r"(?<![\d-])(?:\+\d{1,3}[ .-]?)?(?:\d{3}[ .-]\d{3}[ .-]\d{4}|\d{5}[ .-]\d{5})(?![\d-])")
+PHONE = re.compile(r"(?<!\d)(?:\+\d{1,3}\s?)?(?:\d{10}|\d{5}\s\d{5}|\d{2}\s\d{8}|\d{2}\s\d{4}\s\d{4})(?!\d)")
 SSN = re.compile(r"(?<!\d)\d{3}-\d{2}-\d{4}(?!\d)")
 CARD = re.compile(r"(?<!\d)(?:\d[ -]?){13,19}(?!\d)")
 IPV4 = re.compile(r"(?<![\w.])(?:\d{1,3}\.){3}\d{1,3}(?![\w.])")
@@ -80,6 +80,14 @@ def find_pii(text: str, nlp) -> list[dict]:
     # Ignore single-word
         if entity.label_ == "PERSON" and len(entity.text.split()) < 2:
             continue
+        if entity.label_ == "ORG":
+            if entity.text.strip().lower() in {
+                "aadhaar",
+                "pan",
+                "passport",
+                "driving licence"
+            }:
+                continue
         entity_type = {
             "PERSON": "PERSON",
             "ORG": "COMPANY",
