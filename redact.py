@@ -77,11 +77,27 @@ def find_pii(text: str, nlp) -> list[dict]:
     add_matches(detections, "ADDRESS", ADDRESS, text)
 
     for entity in nlp(text).ents:
-        entity_type = {"PERSON": "PERSON", "ORG": "COMPANY", "GPE": "ADDRESS"}.get(entity.label_)
-        if entity_type and entity.text.upper() not in {"SSN", "DOB", "IP", "CARD"} and not any(character.isdigit() for character in entity.text):
-            detections.append({"type": entity_type, "text": entity.text, "start": entity.start_char, "end": entity.end_char})
+    # Ignore single-word
+        if entity.label_ == "PERSON" and len(entity.text.split()) < 2:
+            continue
+        entity_type = {
+            "PERSON": "PERSON",
+            "ORG": "COMPANY",
+        }.get(entity.label_)
+        if (
+            entity_type
+            and entity.text.upper() not in {"SSN", "DOB", "IP", "CARD"}
+            and not any(char.isdigit() for char in entity.text)
+        ):
+            detections.append(
+                {
+                    "type": entity_type,
+                    "text": entity.text,
+                    "start": entity.start_char,
+                    "end": entity.end_char,
+                }
+            )
     return remove_overlaps(detections)
-
 
 def replacement_for(entity_type: str, original: str, mapping: dict, fake: Faker) -> str:
     key = (entity_type, original.casefold())
